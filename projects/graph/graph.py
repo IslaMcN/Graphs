@@ -99,19 +99,26 @@ class Graph:
         stack = Stack()
         stack.push(starting_vertex)
         # Create a set to store visited vertices
-        visited = set()
+
+        
+        if visited is None:
+            visited = set()
         # While the stack is not empty
         while stack.size() > 0:
             #Check to see if it's been visited
+            v= stack.pop()
+            print(v)
             #If it hasn't been visited
-            if stack not in visited:
+            if v not in visited:
+                print('--', v)
                 #Mark as visited
-                visited.add(stack)
+                visited.add(v)
                 #Push all neighbors to stack
-                for n in self.get_neighbors(stack):
-                    self.dft_recursive(n)
+                for n in self.get_neighbors(v):
+                    if n is None:
+                        return stack
                 #Pass neighbors through again and again
-
+                    self.dft_recursive(n)
     def bfs(self, starting_vertex, destination_vertex):
         """
         Return a list containing the shortest path from
