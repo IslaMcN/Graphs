@@ -1,16 +1,17 @@
-# Using Depth-First Search
-    # This is usually a good approach if you want the solution that is very far from the root.
+
 def earliest_ancestor(ancestors, starting_node):
-    #Begin at starting vertex
-    stack = [starting_node]
-    #Explore the vertex
-    explored = set()
-        #If unexplored, adjacent vertex
-    if starting_node not in explored:
-            #Explore adjacent vertex
-        adjacent = next(stack)
-        # Mark explored once all adjacent vertices have been explored (remove from 
-        # stack)
-    x = stack.pop()
-    explored.add(x)
+    for i in ancestors:
+        print(i)
+        if starting_node == i[1]:
+            goal = i
+            print(goal)
+        #     if temp[0] == None and temp[1] == None:
+        #         return -1
+        #     if i is None:
+        #         return temp[0]
+        #     r = earliest_ancestor(ancestors, temp[0])
+        #     if r is not None:
+        #         return r
+        # else:
+        #     return -1
     
