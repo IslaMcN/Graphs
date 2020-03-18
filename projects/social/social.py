@@ -93,39 +93,21 @@ class SocialGraph:
         path = []
         print(94,self.friendships.keys())
         # Create Graph
-            # If this doesn't work use .items() and refer to parent as f[0] and child 
-            # as f[1]
-        user = self.friendships.items()[1:]
-        print(99,user)
-        friends = self.friendships.items()[:1]
-        for u in user:
-            if u not in self.users:
-                self.add_user(u)
-        print(friends)
-        for f in friends:
-            print(104, f)
-            f = frozenset(f)
-            if f not in self.users:
-                self.add_user(f)
-                self.add_friendship(u, f)
-
-        # Use BFS
-        while queue:
-            p = queue.dequeue()
-            path.append(p)
-            node = path[-1]
-            if node not in visited:
-                if node in self.friendships:
-                    return self.friendships[node]
-                n = self.get_all_social_paths(node)
-                for peeps in n:
-                    new_path = list(path)
-                    new_path.append(peeps)
-                    queue.enqueue(new_path)
-                    if peeps == user_id:
-                        return new_path
-                visited.update(node) 
-        
+        print(user_id)
+        if user_id not in self.users:
+            self.add_user(user_id)
+        if user_id not in self.friendships:
+            return "You are no one's friend."
+        # Use BFT
+        print(102,queue.queue)
+        while queue.size() > 0:
+            path = queue.dequeue()
+            v = path[-1]
+            print(105, v)
+            if v not in visited:
+                visited[v] = path
+                for friend in self.friendships[v]:
+                    path.append(friend)
         # Check lengths
         # return the shortest length
         return visited
