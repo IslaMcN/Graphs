@@ -55,7 +55,7 @@ def earliest_ancestor(ancestors, starting_node):
     queue = Queue()
     queue.enqueue([starting_node])
     visited = set()
-    ancestor = starting_node
+    ancestor = -1
     path = []
     for pair in ancestors:
         parent = pair[0]
@@ -67,13 +67,18 @@ def earliest_ancestor(ancestors, starting_node):
         graph.add_edge(child, parent)
     ## Check length of path and pick and return the longest
     # Update ancestors
-    longest_path = 0
+    longest_path = 1
     while queue.size() > 0:
         path = queue.dequeue()
         v = path[-1]
+        if len(path) == longest_path:
+            if v < ancestor:
+                longest_path = len(path)
+                ancestor = v
         if len(path) > longest_path:
             longest_path = len(path)
             ancestor = v
+        
         print(len(graph.get_neighbors(v)))
         if len(graph.get_neighbors(v)) != 0:
             print('here', v)
