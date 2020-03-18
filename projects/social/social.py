@@ -95,17 +95,19 @@ class SocialGraph:
         # Create Graph
             # If this doesn't work use .items() and refer to parent as f[0] and child 
             # as f[1]
-        user = list(self.friendships.keys())
-        friends = list(self.friendships.values())
+        user = self.friendships.items()[1:]
+        print(99,user)
+        friends = self.friendships.items()[:1]
         for u in user:
             if u not in self.users:
                 self.add_user(u)
+        print(friends)
         for f in friends:
             print(104, f)
+            f = frozenset(f)
             if f not in self.users:
-                
                 self.add_user(f)
-            self.add_friendship(u, f)
+                self.add_friendship(u, f)
 
         # Use BFS
         while queue:
@@ -122,10 +124,10 @@ class SocialGraph:
                     queue.enqueue(new_path)
                     if peeps == user_id:
                         return new_path
-                # visited.append(node) 
+                visited.update(node) 
         
         # Check lengths
-        # return the shorted length
+        # return the shortest length
         return visited
 
 
