@@ -1,5 +1,19 @@
 import random
 
+
+class Queue():
+    def __init__(self):
+        self.queue = []
+    def enqueue(self, value):
+        self.queue.append(value)
+    def dequeue(self):
+        if self.size() > 0:
+            return self.queue.pop(0)
+        else:
+            return None
+    def size(self):
+        return len(self.queue)
+
 class User:
     def __init__(self, name):
         self.name = name
@@ -59,6 +73,9 @@ class SocialGraph:
             friendship = possible_friendships[i]
             self.add_friendship(friendship[0], friendship[1])
 
+
+
+    #BFS = Queue
     def get_all_social_paths(self, user_id):
         """
         Takes a user's user_id as an argument
@@ -70,6 +87,45 @@ class SocialGraph:
         """
         visited = {}  # Note that this is a dictionary, not a set
         # !!!! IMPLEMENT ME
+        # Initialize
+        queue = Queue()
+        queue.enqueue([user_id])
+        path = []
+        print(94,self.friendships.keys())
+        # Create Graph
+            # If this doesn't work use .items() and refer to parent as f[0] and child 
+            # as f[1]
+        user = list(self.friendships.keys())
+        friends = list(self.friendships.values())
+        for u in user:
+            if u not in self.users:
+                self.add_user(u)
+        for f in friends:
+            print(104, f)
+            if f not in self.users:
+                
+                self.add_user(f)
+            self.add_friendship(u, f)
+
+        # Use BFS
+        while queue:
+            p = queue.dequeue()
+            path.append(p)
+            node = path[-1]
+            if node not in visited:
+                if node in self.friendships:
+                    return self.friendships[node]
+                n = self.get_all_social_paths(node)
+                for peeps in n:
+                    new_path = list(path)
+                    new_path.append(peeps)
+                    queue.enqueue(new_path)
+                    if peeps == user_id:
+                        return new_path
+                # visited.append(node) 
+        
+        # Check lengths
+        # return the shorted length
         return visited
 
 
