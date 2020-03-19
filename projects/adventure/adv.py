@@ -42,22 +42,31 @@ class Graph:
     """Represent a graph as a dictionary of vertices mapping labels to edges."""
     def __init__(self):
         self.vertices = {}
+    def add_vertex(self, vertex_id):
+        """
+        Add a vertex to the graph.
+        """
+        self.vertices[vertex_id] = set()
     def get_neighbors(self, vertex_id):
         """
         Get all neighbors (edges) of a vertex.
         """
+        print(vertex_id)
+        print(self.vertices)
         if vertex_id in self.vertices:
             return self.vertices[vertex_id]
         else:
-            raise ValueError('Vertex does not exist')
+            self.add_vertex(vertex_id)
 # Fill this out with directions to walk
 # traversal_path = ['n', 'n']
-
 #initialize
-    def maze(self, starting):
+    def maze(self, starting,traversal_path=[] ):
         stack = Stack()
-        traversal_path = []
+        # traversal_path = []
         stack.push(starting)
+        # Create Graph
+        if starting not in self.vertices:
+            self.add_vertex(starting)
 #Use DFT - Recursion
         while stack.size() > 0:
             node = stack.pop()
@@ -65,7 +74,7 @@ class Graph:
                 print(node)
                 traversal_path.append(node)
                 for n in self.get_neighbors(node):
-                    stack.push(n)
+                    self.maze(n, traversal_path)
 # TRAVERSAL TEST
         visited_rooms = set()
         player.current_room = world.starting_room
