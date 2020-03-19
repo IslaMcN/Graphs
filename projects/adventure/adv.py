@@ -42,6 +42,10 @@ class Graph:
     """Represent a graph as a dictionary of vertices mapping labels to edges."""
     def __init__(self):
         self.vertices = {}
+        self.directions = {0:
+        {
+            'n': '?', 's': '?', 'e': '?', 'w': '?'
+        }}
     def add_vertex(self, vertex_id):
         """
         Add a vertex to the graph.
@@ -60,9 +64,9 @@ class Graph:
 # Fill this out with directions to walk
 # traversal_path = ['n', 'n']
 #initialize
-    def maze(self, starting,traversal_path=[] ):
+    def maze(self, starting):
         stack = Stack()
-        # traversal_path = []
+        traversal_path = []
         stack.push(starting)
         # Create Graph
         if starting not in self.vertices:
@@ -74,7 +78,7 @@ class Graph:
                 print(node)
                 traversal_path.append(node)
                 for n in self.get_neighbors(node):
-                    self.maze(n, traversal_path)
+                    stack.push(n)
 # TRAVERSAL TEST
         visited_rooms = set()
         player.current_room = world.starting_room
