@@ -142,22 +142,22 @@ class SocialGraph:
 
 
 if __name__ == '__main__':
+    sg = SocialGraph()
+    sg.populate_graph(10, 2)
+    print(sg.friendships)
+    connection = sg.get_all_social_paths(5)
+    print(f'Answer: {connection}')
+    # num_users = 2000
+    # avg_friendships = 1999
     # sg = SocialGraph()
-    # sg.populate_graph(10, 2)
-    # print(sg.friendships)
-    # connections = sg.get_all_social_paths(1)
-    # print(f'Answer: {connections}')
-    num_users = 2000
-    avg_friendships = 1999
-    sg = SocialGraph()
-    start_time = time.time()
-    sg.populate_graph(num_users, avg_friendships)
-    end_time = time.time()
-    print('------------------')
-    print(f'Quadratic populate: {end_time - start_time} seconds')
-    print('------------------')
-    sg = SocialGraph()
-    start_time = time.time()
-    sg.populate_graph_linear(num_users, avg_friendships)
-    end_time = time.time()
-    print(f'Linear populate: {end_time - start_time} seconds')
+    # start_time = time.time()
+    # sg.populate_graph(num_users, avg_friendships)
+    # end_time = time.time()
+    # print('------------------')
+    # print(f'Quadratic populate: {end_time - start_time} seconds')
+    # print('------------------')
+    # sg = SocialGraph()
+    # start_time = time.time()
+    # sg.populate_graph_linear(num_users, avg_friendships)
+    # end_time = time.time()
+    # print(f'Linear populate: {end_time - start_time} seconds')
