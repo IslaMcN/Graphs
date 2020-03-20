@@ -40,11 +40,35 @@ player = Player(world.starting_room)
 
 # Fill this out with directions to walk
 # traversal_path = ['n', 'n']
-traversal_path = []
+current = world.starting_room
+traversal_path = None
+# CREATE EMPTY STACK
 stack = Stack()
-stack.push(world.starting_room)
-while stack:
-    
+# ADD STARTING ROOM TO STACK
+stack.push(current)
+print('Start:', stack)
+# CREATE AN EMPTY SET TO STORE VISITED NODES
+visited = set()
+# WHILE THE STACK IS NOT EMPTY
+while stack.size > 0:
+    # POP THE FIRST ROOM
+    v = stack.pop()
+    # CHECK IF IT HAS BEEN VISITED
+    # IF IT HAS NOT BEEN VISITED
+    if v not in visited:
+        # MARK IT AS VISITED
+        print(v)
+        visited.add(v)
+        # CHECK IF ITS NEIGHBORS HAVE BEEN VISITED
+        # IF NOT, GO TO ONE OF THE DIRECTIONS
+        # IF ALL NEIGHBORS HAVE BEEN VISITED, USE BFS TO FIND THE FIRST ROOM THAT HAS 
+        # EXPLORED NEIGHBOR
+        # DFS
+        # CREATE EMPTY QUEUE
+        # ADD THE ROOM THAT HAS THE NON-EXPLORED NEIGHBOR TO THE QUEUE AS THE STARTING 
+        # POINT OF THE PATH
+
+        
 
 
 # TRAVERSAL TEST
