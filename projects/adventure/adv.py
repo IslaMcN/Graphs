@@ -119,6 +119,11 @@ while stack.size > 0:
                     new_path.append('w')
                     paths.append(new_path)
                     queue.enqueue(visited_room.w_to)
+                if visited_room.s_to:
+                    new_path = path.copy()
+                    new_path.append('s')
+                    paths.append(new_path)
+                    queue.enqueue(visited_room.s_to)
 
 
         
