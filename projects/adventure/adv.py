@@ -73,13 +73,18 @@ while stack.size > 0:
         elif v.s_to and v.s_to not in visited:
             traversal_path.append('s')
             stack.push(v.s_to)
+        elif v.e_to and v.e_to not in visited:
+            traversal_path.append('e')
+            stack.push(v.e_to)
         # IF NOT, GO TO ONE OF THE DIRECTIONS
         # IF ALL NEIGHBORS HAVE BEEN VISITED, USE BFS TO FIND THE FIRST ROOM THAT HAS 
         # EXPLORED NEIGHBOR
         # DFS
         # CREATE EMPTY QUEUE
+        queue = []
         # ADD THE ROOM THAT HAS THE NON-EXPLORED NEIGHBOR TO THE QUEUE AS THE STARTING 
         # POINT OF THE PATH
+        paths = [[]]
 
         
 
