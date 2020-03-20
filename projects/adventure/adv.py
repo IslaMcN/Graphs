@@ -115,12 +115,42 @@ while len(stack.stack) > 0:
                 visited[v.n_to.id]['s'] = v.id
             else:
                 visited[v.n_to.id]['s'] = v.id
-        elif v.s_to and v.s_to not in visited:
+        elif v.s_to and visited[v.id]['s'] == '?':
+
             traversal_path.append('s')
             stack.push(v.s_to)
-        elif v.e_to and v.e_to not in visited:
+            visited[v.id]['s'] = v.s_to.id
+            if v.s_to.id not in visited:
+                visited[v.s_to.id] = dict()
+                if v.s_to.w_to is not None:
+                    visited[v.s_to.id]['w'] = '?'
+                if v.s_to.n_to.id is not None:
+                    visited[v.s_to.id]['n'] = '?'
+                if v.s_to.e._to.id is not None:
+                    visited[v.s_to.id]['e'] = '?'
+                if v.s_to.s_to.id is not None:
+                    visited[v.s_to.id]['s'] = '?'
+                visited[v.s_to.id]['n'] = v.id
+            else:
+                visited[v.s_to.id]['n'] = v.id
+        elif v.e_to and visited[v.id]['e'] == '?':
+
             traversal_path.append('e')
             stack.push(v.e_to)
+            visited[v.id]['e'] = v.e_to.id
+            if v.e_to_.id not in visited:
+                visited[v.e_to.id] = dict()
+                if v.e_to.w_to is not None:
+                    visited[v.e_to.id]['w'] = '?'
+                if v.e_to.n_to is not None:
+                    visited[v.e_to.id]['n'] = '?'
+                if v.e_to.s_to is not None: 
+                    visited[v.e_to.id]['s'] = '?'
+                if v.e_to.e_to is not None:
+                    visited[v.e_to.id]['e'] = '?'
+                visited[v.e_to.id]['w'] = v.id
+            else:
+                visited[v.e_to.id]['w'] = v.id
         elif len(visited) == len(room_graph):
             print(visited)
             break
