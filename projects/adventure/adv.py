@@ -85,6 +85,9 @@ while stack.size > 0:
         # ADD THE ROOM THAT HAS THE NON-EXPLORED NEIGHBOR TO THE QUEUE AS THE STARTING 
         # POINT OF THE PATH
         paths = [[]]
+        # WHILE THE STACK IS NOT EMPTY
+            # POP THE FIRST ROOM
+            # CHECK THIS VISITED ROOM TO SEE IF IT HAS UNEXPLORED NEIGHBOR
 
         
 
