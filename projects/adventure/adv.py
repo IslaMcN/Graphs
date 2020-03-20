@@ -79,6 +79,7 @@ while len(stack.stack) > 0:
         if v.e_to is not None:
             visited[v.id]['e'] = '?'
         # CHECK IF ITS NEIGHBORS HAVE BEEN VISITED
+        # IF NOT, GO TO ONE OF THE DIRECTIONS
         if v.w_to and visited[v.id]['w'] == '?':
             traversal_path.append('w')
             stack.push(v.w_to)
@@ -154,7 +155,7 @@ while len(stack.stack) > 0:
         elif len(visited) == len(room_graph):
             print(visited)
             break
-        # IF NOT, GO TO ONE OF THE DIRECTIONS
+        
         # IF ALL NEIGHBORS HAVE BEEN VISITED, USE BFS TO FIND THE FIRST ROOM THAT HAS 
         # EXPLORED NEIGHBOR
         # DFS
@@ -162,6 +163,7 @@ while len(stack.stack) > 0:
         queue = Queue()
         # ADD THE ROOM THAT HAS THE NON-EXPLORED NEIGHBOR TO THE QUEUE AS THE STARTING 
         # POINT OF THE PATH
+        queue.enqueue(v)
         paths = [[]]
         # WHILE THE STACK IS NOT EMPTY
         while len(queue.queue) > 0:
