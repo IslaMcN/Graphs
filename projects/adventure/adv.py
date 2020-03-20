@@ -106,6 +106,8 @@ while stack.size > 0:
                 queue.queue.clear()
                 traversal_path.extend(path)
                 stack.push(visited_room)
+            # ELSE
+                # ADD NEIGHBOR TO QUEUE
 
         
 
