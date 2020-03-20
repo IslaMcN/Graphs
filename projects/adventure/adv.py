@@ -59,146 +59,76 @@ stack = Stack()
 stack.push(current)
 print('Start:', stack)
 # CREATE AN EMPTY SET TO STORE VISITED NODES
-visited = dict()
+visited = set()
 # WHILE THE STACK IS NOT EMPTY
 while len(stack.stack) > 0:
     # POP THE FIRST ROOM
     v = stack.pop()
     # CHECK IF IT HAS BEEN VISITED
     # IF IT HAS NOT BEEN VISITED
-    if v.id not in visited:
+    if v not in visited:
         # MARK IT AS VISITED
-        print('v', v)
-        visited[v.id] = dict()
-        if v.w_to is not None:
-            visited[v.id]['w'] = '?'
-        if v.n_to is not None:
-            visited[v.id]['n'] = '?'
-        if v.s_to is not None:
-            visited[v.id]['s'] = '?'
-        if v.e_to is not None:
-            visited[v.id]['e'] = '?'
+        print(v)
+        visited.add(v)
+         
         # CHECK IF ITS NEIGHBORS HAVE BEEN VISITED
-        # IF NOT, GO TO ONE OF THE DIRECTIONS
-        if v.w_to and visited[v.id]['w'] == '?':
+        if v.w_to and v.w_to not in visited:
             traversal_path.append('w')
             stack.push(v.w_to)
-            visited[v.id]['w'] = v.w_to.id
-            if v.w_to.id not in visited:
-                visited[v.w_to.id] = dict()
-                if v.w_to.w_to is not None:
-                    visited[v.w_to.id]['w'] = '?'
-                if v.w_to.n_to is not None:
-                    visited[v.w_to.id]['n'] = '?'
-                if v.w_to.s_to is not None:
-                    visited[v.w_to.id]['s'] = '?'
-                if v.w_to.e_to is not None:
-                    visited[v.w_to.id]['e'] = '?'
-            else:
-                visited[v.w_to.id]['e'] - v.id
-                
-                
-        elif v.n_to and visited[v.id]['n'] == '?':
-
+        elif v.n_to and v.n_to not in visited:
             traversal_path.append('n')
             stack.push(v.n_to)
-            visited[v.id]['n'] = v.n_to.id
-            if v.n_to.id not in visited:
-                visited[v.n_to.id] = dict()
-                if v.n_to.w_to is not None:
-                    visited[v.n_to.id]['w'] = '?'
-                if v.n_to.n_to is not None:
-                    visited[v.n_to.id]['n'] = '?'
-                if v.n_to.s_to is not None:
-                    visited[v.n_to.id]['s'] = '?'
-                if v.n_to.e_to is not None:
-                    visited[v.n_to.id]['e'] = '?'
-                visited[v.n_to.id]['s'] = v.id
-            else:
-                visited[v.n_to.id]['s'] = v.id
-        elif v.s_to and visited[v.id]['s'] == '?':
-
-            traversal_path.append('s')
-            stack.push(v.s_to)
-            visited[v.id]['s'] = v.s_to.id
-            if v.s_to.id not in visited:
-                visited[v.s_to.id] = dict()
-                if v.s_to.w_to is not None:
-                    visited[v.s_to.id]['w'] = '?'
-                if v.s_to.n_to.id is not None:
-                    visited[v.s_to.id]['n'] = '?'
-                if v.s_to.e._to.id is not None:
-                    visited[v.s_to.id]['e'] = '?'
-                if v.s_to.s_to.id is not None:
-                    visited[v.s_to.id]['s'] = '?'
-                visited[v.s_to.id]['n'] = v.id
-            else:
-                visited[v.s_to.id]['n'] = v.id
-        elif v.e_to and visited[v.id]['e'] == '?':
-
-            traversal_path.append('e')
-            stack.push(v.e_to)
-            visited[v.id]['e'] = v.e_to.id
-            if v.e_to_.id not in visited:
-                visited[v.e_to.id] = dict()
-                if v.e_to.w_to is not None:
-                    visited[v.e_to.id]['w'] = '?'
-                if v.e_to.n_to is not None:
-                    visited[v.e_to.id]['n'] = '?'
-                if v.e_to.s_to is not None: 
-                    visited[v.e_to.id]['s'] = '?'
-                if v.e_to.e_to is not None:
-                    visited[v.e_to.id]['e'] = '?'
-                visited[v.e_to.id]['w'] = v.id
-            else:
-                visited[v.e_to.id]['w'] = v.id
         elif len(visited) == len(room_graph):
             print(visited)
             break
-        else:
+        elif v.s_to and v.s_to not in visited:
+            traversal_path.append('s')
+            stack.push(v.s_to)
+        elif v.e_to and v.e_to not in visited:
+            traversal_path.append('e')
+            stack.push(v.e_to)
+        # IF NOT, GO TO ONE OF THE DIRECTIONS
         # IF ALL NEIGHBORS HAVE BEEN VISITED, USE BFS TO FIND THE FIRST ROOM THAT HAS 
         # EXPLORED NEIGHBOR
         # DFS
         # CREATE EMPTY QUEUE
-            queue = Queue()
+        queue = Queue()
         # ADD THE ROOM THAT HAS THE NON-EXPLORED NEIGHBOR TO THE QUEUE AS THE STARTING 
         # POINT OF THE PATH
-            queue.enqueue(v)
-            paths = [[]]
+        paths = [[]]
         # WHILE THE STACK IS NOT EMPTY
-            while len(queue.queue) > 0:
+        while len(queue.queue) > 0:
             # POP THE FIRST ROOM
-                visited_room = queue.dequeue()
-                path = paths.pop(0)
+            visited_room = queue.dequeue()
+            path = paths.pop(0)
             # CHECK THIS VISITED ROOM TO SEE IF IT HAS UNEXPLORED NEIGHBOR
-                if (visited_room.n_to and visited[visited_room.id]['n'] == '?') or (visited_room.s_to and visited[visited_room.id]['s'] == '?') or (visited_room.w_to and visited[visited_room.id]['e'] == '?') or (visited_room.e_to and visited[visited_room.id]['w'] == '?'):
-                    queue.queue.clear()
-                    traversal_path.extend(path)
-                    stack.push(visited_room)
+            if (visited_room.n_to and visited_room.n_to not in visited) or (visited_room.s_to and visited_room.s_to not in visited) or (visited_room.w_to and visited_room.w_to not in visited) or (visited_room.e_to and visited_room.e_to not in visited):
+                queue.queue.clear()
+                traversal_path.extend(path)
+                stack.push(visited_room)
             # ELSE
-                else:
+            else:
                 # ADD NEIGHBOR TO QUEUE
-                    if visited_room.n_to:
-                        new_path = path.copy()
-                        new_path.append('n')
-                        paths.append(new_path)
-                        queue.enqueue(visited_room.n_to)
-                    if visited_room.w_to:
-                        new_path = path.copy()
-                        new_path.append('w')
-                        paths.append(new_path)
-                        queue.enqueue(visited_room.w_to)
-                    if visited_room.s_to:
-                        new_path = path.copy()
-                        new_path.append('s')
-                        paths.append(new_path)
-                        queue.enqueue(visited_room.s_to)
-                    if visited_room.e_to:
-                        new_path = path.copy()
-                        new_path.append('e')
-                        paths.append(new_path)
-                        queue.enqueue(visited_room.e_to)
-print(visited)
+                if visited_room.n_to:
+                    new_path = path.copy()
+                    new_path.append('n')
+                    paths.append(new_path)
+                    queue.enqueue(visited_room.n_to)
+                if visited_room.w_to:
+                    new_path = path.copy()
+                    new_path.append('w')
+                    paths.append(new_path)
+                    queue.enqueue(visited_room.w_to)
+                if visited_room.s_to:
+                    new_path = path.copy()
+                    new_path.append('s')
+                    paths.append(new_path)
+                    queue.enqueue(visited_room.s_to)
+                if visited_room.e_to:
+                    new_path = path.copy()
+                    new_path.append('e')
+                    paths.append(new_path)
+                    queue.enqueue(visited_room.e_to)
 
 
         
