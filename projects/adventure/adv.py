@@ -79,13 +79,42 @@ while len(stack.stack) > 0:
         if v.e_to is not None:
             visited[v.id]['e'] = '?'
         # CHECK IF ITS NEIGHBORS HAVE BEEN VISITED
-        if v.w_to and v.w_to not in visited:
+        if v.w_to and visited[v.id]['w'] == '?':
             traversal_path.append('w')
             stack.push(v.w_to)
-        elif v.n_to and v.n_to not in visited:
+            visited[v.id]['w'] = v.w_to.id
+            if v.w_to.id not in visited:
+                visited[v.w_to.id] = dict()
+                if v.w_to.w_to is not None:
+                    visited[v.w_to.id]['w'] = '?'
+                if v.w_to.n_to is not None:
+                    visited[v.w_to.id]['n'] = '?'
+                if v.w_to.s_to is not None:
+                    visited[v.w_to.id]['s'] = '?'
+                if v.w_to.e_to is not None:
+                    visited[v.w_to.id]['e'] = '?'
+            else:
+                visited[v.w_to.id]['e'] - v.id
+                
+                
+        elif v.n_to and visited[v.id]['n'] == '?':
+
             traversal_path.append('n')
             stack.push(v.n_to)
-        
+            visited[v.id]['n'] = v.n_to.id
+            if v.n_to.id not in visited:
+                visited[v.n_to.id] = dict()
+                if v.n_to.w_to is not None:
+                    visited[v.n_to.id]['w'] = '?'
+                if v.n_to.n_to is not None:
+                    visited[v.n_to.id]['n'] = '?'
+                if v.n_to.s_to is not None:
+                    visited[v.n_to.id]['s'] = '?'
+                if v.n_to.e_to is not None:
+                    visited[v.n_to.id]['e'] = '?'
+                visited[v.n_to.id]['s'] = v.id
+            else:
+                visited[v.n_to.id]['s'] = v.id
         elif v.s_to and v.s_to not in visited:
             traversal_path.append('s')
             stack.push(v.s_to)
