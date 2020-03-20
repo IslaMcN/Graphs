@@ -35,10 +35,10 @@ class Queue():
 
 # You may uncomment the smaller graphs for development and testing purposes.
 # map_file = "maps/test_line.txt"
-map_file = "projects/adventure/maps/test_cross.txt"
+# map_file = "projects/adventure/maps/test_cross.txt"
 # map_file = "maps/test_loop.txt"
 # map_file = "maps/test_loop_fork.txt"
-# map_file = "maps/main_maze.txt"
+map_file = "projects/adventure/maps/main_maze.txt"
 
 # Loads the map into a dictionary
 room_graph=literal_eval(open(map_file, "r").read())
@@ -52,25 +52,32 @@ player = Player(world.starting_room)
 # Fill this out with directions to walk
 # traversal_path = ['n', 'n']
 current = world.starting_room
-traversal_path = None
+traversal_path = []
 # CREATE EMPTY STACK
 stack = Stack()
 # ADD STARTING ROOM TO STACK
 stack.push(current)
 print('Start:', stack)
 # CREATE AN EMPTY SET TO STORE VISITED NODES
-visited = set()
+visited = dict()
 # WHILE THE STACK IS NOT EMPTY
-while stack.size > 0:
+while len(stack.stack) > 0:
     # POP THE FIRST ROOM
     v = stack.pop()
     # CHECK IF IT HAS BEEN VISITED
     # IF IT HAS NOT BEEN VISITED
-    if v not in visited:
+    if v.id not in visited:
         # MARK IT AS VISITED
-        print(v)
-        visited.add(v)
-         
+        print('v', v)
+        visited[v.id] = dict()
+        if v.w_to is not None:
+            visited[v.id]['w'] = '?'
+        if v.n_to is not None:
+            visited[v.id]['n'] = '?'
+        if v.s_to is not None:
+            visited[v.id]['s'] = '?'
+        if v.e_to is not None:
+            visited[v.id]['e'] = '?'
         # CHECK IF ITS NEIGHBORS HAVE BEEN VISITED
         if v.w_to and v.w_to not in visited:
             traversal_path.append('w')
@@ -78,15 +85,16 @@ while stack.size > 0:
         elif v.n_to and v.n_to not in visited:
             traversal_path.append('n')
             stack.push(v.n_to)
-        elif len(visited) == len(room_graph):
-            print(visited)
-            break
+        
         elif v.s_to and v.s_to not in visited:
             traversal_path.append('s')
             stack.push(v.s_to)
         elif v.e_to and v.e_to not in visited:
             traversal_path.append('e')
             stack.push(v.e_to)
+        elif len(visited) == len(room_graph):
+            print(visited)
+            break
         # IF NOT, GO TO ONE OF THE DIRECTIONS
         # IF ALL NEIGHBORS HAVE BEEN VISITED, USE BFS TO FIND THE FIRST ROOM THAT HAS 
         # EXPLORED NEIGHBOR
@@ -97,12 +105,12 @@ while stack.size > 0:
         # POINT OF THE PATH
         paths = [[]]
         # WHILE THE STACK IS NOT EMPTY
-        while queue.size > 0:
+        while len(queue.queue) > 0:
             # POP THE FIRST ROOM
             visited_room = queue.dequeue()
             path = paths.pop(0)
             # CHECK THIS VISITED ROOM TO SEE IF IT HAS UNEXPLORED NEIGHBOR
-            if (visited_room.n_to and visited_room.n_to not in visited) or (visited_room.s_to and visited.s_to not in visited) or (visited_room.w_to and visited_room.w_to not in visited) or (visited_room.e_to and visited_room.e_to not in visited):
+            if (visited_room.n_to and visited_room.n_to not in visited) or (visited_room.s_to and visited_room.s_to not in visited) or (visited_room.w_to and visited_room.w_to not in visited) or (visited_room.e_to and visited_room.e_to not in visited):
                 queue.queue.clear()
                 traversal_path.extend(path)
                 stack.push(visited_room)
@@ -124,6 +132,11 @@ while stack.size > 0:
                     new_path.append('s')
                     paths.append(new_path)
                     queue.enqueue(visited_room.s_to)
+                if visited_room.e_to:
+                    new_path = path.copy()
+                    new_path.append('e')
+                    paths.append(new_path)
+                    queue.enqueue(visited_room.e_to)
 
 
         
@@ -133,7 +146,7 @@ while stack.size > 0:
 visited_rooms = set()
 player.current_room = world.starting_room
 visited_rooms.add(player.current_room)
-
+print(traversal_path)
 for move in traversal_path:
     player.travel(move)
     visited_rooms.add(player.current_room)
