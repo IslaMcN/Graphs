@@ -155,49 +155,50 @@ while len(stack.stack) > 0:
         elif len(visited) == len(room_graph):
             print(visited)
             break
-        
+        else:
         # IF ALL NEIGHBORS HAVE BEEN VISITED, USE BFS TO FIND THE FIRST ROOM THAT HAS 
         # EXPLORED NEIGHBOR
         # DFS
         # CREATE EMPTY QUEUE
-        queue = Queue()
+            queue = Queue()
         # ADD THE ROOM THAT HAS THE NON-EXPLORED NEIGHBOR TO THE QUEUE AS THE STARTING 
         # POINT OF THE PATH
-        queue.enqueue(v)
-        paths = [[]]
+            queue.enqueue(v)
+            paths = [[]]
         # WHILE THE STACK IS NOT EMPTY
-        while len(queue.queue) > 0:
+            while len(queue.queue) > 0:
             # POP THE FIRST ROOM
-            visited_room = queue.dequeue()
-            path = paths.pop(0)
+                visited_room = queue.dequeue()
+                path = paths.pop(0)
             # CHECK THIS VISITED ROOM TO SEE IF IT HAS UNEXPLORED NEIGHBOR
-            if (visited_room.n_to and visited_room.n_to not in visited) or (visited_room.s_to and visited_room.s_to not in visited) or (visited_room.w_to and visited_room.w_to not in visited) or (visited_room.e_to and visited_room.e_to not in visited):
-                queue.queue.clear()
-                traversal_path.extend(path)
-                stack.push(visited_room)
+                if (visited_room.n_to and visited[visited_room.id]['n'] == '?') or (visited_room.s_to and visited[visited_room.id]['s'] == '?') or (visited_room.w_to and visited[visited_room.id]['e'] == '?') or (visited_room.e_to and visited[visited_room.id]['w'] == '?'):
+                    queue.queue.clear()
+                    traversal_path.extend(path)
+                    stack.push(visited_room)
             # ELSE
-            else:
+                else:
                 # ADD NEIGHBOR TO QUEUE
-                if visited_room.n_to:
-                    new_path = path.copy()
-                    new_path.append('n')
-                    paths.append(new_path)
-                    queue.enqueue(visited_room.n_to)
-                if visited_room.w_to:
-                    new_path = path.copy()
-                    new_path.append('w')
-                    paths.append(new_path)
-                    queue.enqueue(visited_room.w_to)
-                if visited_room.s_to:
-                    new_path = path.copy()
-                    new_path.append('s')
-                    paths.append(new_path)
-                    queue.enqueue(visited_room.s_to)
-                if visited_room.e_to:
-                    new_path = path.copy()
-                    new_path.append('e')
-                    paths.append(new_path)
-                    queue.enqueue(visited_room.e_to)
+                    if visited_room.n_to:
+                        new_path = path.copy()
+                        new_path.append('n')
+                        paths.append(new_path)
+                        queue.enqueue(visited_room.n_to)
+                    if visited_room.w_to:
+                        new_path = path.copy()
+                        new_path.append('w')
+                        paths.append(new_path)
+                        queue.enqueue(visited_room.w_to)
+                    if visited_room.s_to:
+                        new_path = path.copy()
+                        new_path.append('s')
+                        paths.append(new_path)
+                        queue.enqueue(visited_room.s_to)
+                    if visited_room.e_to:
+                        new_path = path.copy()
+                        new_path.append('e')
+                        paths.append(new_path)
+                        queue.enqueue(visited_room.e_to)
+print(visited)
 
 
         
