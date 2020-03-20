@@ -70,6 +70,9 @@ while stack.size > 0:
         elif len(visited) == len(room_graph):
             print(visited)
             break
+        elif v.s_to and v.s_to not in visited:
+            traversal_path.append('s')
+            stack.push(v.s_to)
         # IF NOT, GO TO ONE OF THE DIRECTIONS
         # IF ALL NEIGHBORS HAVE BEEN VISITED, USE BFS TO FIND THE FIRST ROOM THAT HAS 
         # EXPLORED NEIGHBOR
