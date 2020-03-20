@@ -20,7 +20,18 @@ class Stack():
     def size(self):
         return len(self.stack)
 
-
+class Queue():
+    def __init__(self):
+        self.queue = []
+    def enqueue(self, value):
+        self.queue.append(value)
+    def dequeue(self):
+        if self.size() > 0:
+            return self.queue.pop(0)
+        else:
+            return None
+    def size(self):
+        return len(self.queue)
 
 # You may uncomment the smaller graphs for development and testing purposes.
 # map_file = "maps/test_line.txt"
@@ -81,13 +92,20 @@ while stack.size > 0:
         # EXPLORED NEIGHBOR
         # DFS
         # CREATE EMPTY QUEUE
-        queue = []
+        queue = Queue()
         # ADD THE ROOM THAT HAS THE NON-EXPLORED NEIGHBOR TO THE QUEUE AS THE STARTING 
         # POINT OF THE PATH
         paths = [[]]
         # WHILE THE STACK IS NOT EMPTY
+        while queue.size > 0:
             # POP THE FIRST ROOM
+            visited_room = queue.dequeue()
+            path = paths.pop(0)
             # CHECK THIS VISITED ROOM TO SEE IF IT HAS UNEXPLORED NEIGHBOR
+            if (visited_room.n_to and visited_room.n_to not in visited) or (visited_room.s_to and visited.s_to not in visited) or (visited_room.w_to and visited_room.w_to not in visited) or (visited_room.e_to and visited_room.e_to not in visited):
+                queue.queue.clear()
+                traversal_path.extend(path)
+                stack.push(visited_room)
 
         
 
