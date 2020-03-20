@@ -107,7 +107,19 @@ while stack.size > 0:
                 traversal_path.extend(path)
                 stack.push(visited_room)
             # ELSE
+            else:
                 # ADD NEIGHBOR TO QUEUE
+                if visited_room.n_to:
+                    new_path = path.copy()
+                    new_path.append('n')
+                    paths.append(new_path)
+                    queue.enqueue(visited_room.n_to)
+                if visited_room.w_to:
+                    new_path = path.copy()
+                    new_path.append('w')
+                    paths.append(new_path)
+                    queue.enqueue(visited_room.w_to)
+
 
         
 
