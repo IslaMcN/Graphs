@@ -20,7 +20,7 @@ class Stack():
     def size(self):
         return len(self.stack)
 
-
+room = Room()
 
 # You may uncomment the smaller graphs for development and testing purposes.
 # map_file = "maps/test_line.txt"
@@ -59,7 +59,11 @@ while stack.size > 0:
         # MARK IT AS VISITED
         print(v)
         visited.add(v)
+         
         # CHECK IF ITS NEIGHBORS HAVE BEEN VISITED
+        if room.w_to and room.w_to not in visited:
+            traversal_path.append('w')
+            stack.push(room.w_to)
         # IF NOT, GO TO ONE OF THE DIRECTIONS
         # IF ALL NEIGHBORS HAVE BEEN VISITED, USE BFS TO FIND THE FIRST ROOM THAT HAS 
         # EXPLORED NEIGHBOR
